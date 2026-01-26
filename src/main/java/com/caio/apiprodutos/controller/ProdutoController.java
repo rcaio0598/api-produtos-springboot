@@ -1,45 +1,75 @@
 package com.caio.apiprodutos.controller;
 
 import com.caio.apiprodutos.model.Produto;
+import com.caio.apiprodutos.repository.ProdutoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/produtos")
 public class ProdutoController {
 
-    // Lista em memória (simula banco de dados)
-    private List<Produto> produtos = new ArrayList<>();
+    @Autowired
+    private ProdutoRepository produtoRepository;
 
-    // GET /produtos -> lista todos
+    // GET /produtos
     @GetMapping
     public List<Produto> listarProdutos() {
-        return produtos;
+        return produtoRepository.findAll();
     }
 
-    // GET /produtos/{id} -> busca por id
+    // GET /produtos/{id}
     @GetMapping("/{id}")
-    public Produto buscarPorId(@PathVariable Long id) {
-        for (Produto produto : produtos) {
-            if (produto.getId().equals(id)) {
-                return produto;
-            }
+    public ResponseEntity<Produto> buscarPorId(@PathVariable Long id) {
+        Optional<Produto> produto = produtoRepository.findById(id);
+
+        if (produto.isPresent()) {
+            return ResponseEntity.ok(produto.get());
+        } else {
+            return ResponseEntity.notFound().build();
         }
-        return null;
     }
 
-    // POST /produtos -> adiciona produto
+    // POST /produtos
     @PostMapping
     public Produto adicionarProduto(@RequestBody Produto produto) {
-        produtos.add(produto);
-        return produto;
+        return produtoRepository.save(produto);
     }
 
-    // DELETE /produtos/{id} -> remove produto
+    // PUT /produtos/{id}
+    @PutMapping("/{id}")
+    public ResponseEntity<Produto> atualizarProduto(@PathVariable Long id,
+                                                   @RequestBody Produto produtoAtualizado) {
+
+        Optional<Produto> produtoExistente = produtoRepository.findById(id);
+
+        if (produtoExistente.isPresent()) {
+            Produto p = produtoExistente.get();
+            p.setNome(produtoAtualizado.getNome());
+            p.setPreco(produtoAtualizado.getPreco());
+            p.setQuantidade(produtoAtualizado.getQuantidade());
+
+            produtoRepository.save(p);
+            return ResponseEntity.ok(p);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    // DELETE /produtos/{id}
     @DeleteMapping("/{id}")
-    public void removerProduto(@PathVariable Long id) {
-        produtos.removeIf(produto -> produto.getId().equals(id));
+    public ResponseEntity<Void> removerProduto(@PathVariable Long id) {
+        Optional<Produto> produto = produtoRepository.findById(id);
+
+        if (produto.isPresent()) {
+            produtoRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

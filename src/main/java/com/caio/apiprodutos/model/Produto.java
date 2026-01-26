@@ -1,20 +1,34 @@
 package com.caio.apiprodutos.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Produto {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nome;
     private double preco;
+    private int quantidade;
 
+    // Construtor vazio (obrigatório pelo JPA)
     public Produto() {
     }
 
-    public Produto(Long id, String nome, double preco) {
+    // Construtor completo
+    public Produto(Long id, String nome, double preco, int quantidade) {
         this.id = id;
         this.nome = nome;
         this.preco = preco;
+        this.quantidade = quantidade;
     }
 
+    // Getters e Setters
     public Long getId() {
         return id;
     }
@@ -37,5 +51,13 @@ public class Produto {
 
     public void setPreco(double preco) {
         this.preco = preco;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
 }
