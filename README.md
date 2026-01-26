@@ -1,41 +1,49 @@
-# API Produtos - Spring Boot (JPA + Hibernate + H2)
+# API Produtos - Spring Boot (JPA + H2)
 
-## 📌 Descrição
-Projeto desenvolvido como exercício prático para implementar persistência com **Spring Data JPA**, **Hibernate** e banco de dados **H2 em memória**.
-
-O objetivo é evoluir um CRUD já existente, agora salvando os dados no banco ao invés de manter em memória.
+![Status](https://img.shields.io/badge/status-concluído-brightgreen)
+![Java](https://img.shields.io/badge/java-17-blue)
+![Spring](https://img.shields.io/badge/springboot-4.0.2-green)
+![H2](https://img.shields.io/badge/H2-in-memory-purple)
 
 ---
 
-## 🧱 Tecnologias / Starters
-- Spring Boot 4
-- Spring Web
+## 📌 Sobre o projeto
+
+Este projeto é uma API REST de produtos criada com **Spring Boot**, utilizando **Spring Data JPA** e **Hibernate**, com banco de dados **H2 em memória**.
+
+O objetivo do exercício é implementar persistência em banco de dados e realizar operações CRUD (Create, Read, Update, Delete) utilizando JPA, sem SQL manual.
+
+---
+
+## 🚀 Tecnologias utilizadas
+
+- Java 17
+- Spring Boot
 - Spring Data JPA
 - Hibernate
-- H2 Database (em memória)
-- Maven
+- Banco H2 (em memória)
+- Postman (para testes)
 
 ---
 
-## 🗂 Estrutura do Projeto
+## 📌 Checklist do exercício
 
-- `model/Produto.java` → Entidade JPA
-- `repository/ProdutoRepository.java` → Repositório JPA
-- `controller/ProdutoController.java` → CRUD via REST
-- `application.properties` → Configuração do H2 e JPA
+- [x] Entidade Produto com `@Entity`
+- [x] ID com `@Id` e `@GeneratedValue`
+- [x] CRUD com JPA (sem SQL manual)
+- [x] H2 configurado
+- [x] Console do H2 funcionando
+- [x] Aplicação rodando na porta padrão 8080
 
 ---
 
-## 🛠 Funcionalidades (CRUD)
+## 📦 Como rodar o projeto
 
-### ✅ Create
-**POST /produtos**
+### 1) Baixar o projeto
+Clone ou faça download do repositório.
 
-Exemplo JSON:
+### 2) Rodar a aplicação
+Abra o terminal dentro da pasta do projeto e execute:
 
-```json
-{
-  "nome": "Camiseta",
-  "preco": 59.90,
-  "quantidade": 10
-}
+```bash
+mvn spring-boot:run
