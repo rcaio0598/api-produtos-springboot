@@ -1,49 +1,90 @@
-# API Produtos - Spring Boot (JPA + H2)
+# 🧩 API de Produtos – Spring Boot | Arquitetura com SOLID
 
-![Status](https://img.shields.io/badge/status-concluído-brightgreen)
-![Java](https://img.shields.io/badge/java-17-blue)
-![Spring](https://img.shields.io/badge/springboot-4.0.2-green)
-![H2](https://img.shields.io/badge/H2-in-memory-purple)
-
----
-
-## 📌 Sobre o projeto
-
-Este projeto é uma API REST de produtos criada com **Spring Boot**, utilizando **Spring Data JPA** e **Hibernate**, com banco de dados **H2 em memória**.
-
-O objetivo do exercício é implementar persistência em banco de dados e realizar operações CRUD (Create, Read, Update, Delete) utilizando JPA, sem SQL manual.
+![Java](https://img.shields.io/badge/Java-17-orange)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-brightgreen)
+![JPA](https://img.shields.io/badge/JPA-Hibernate-blue)
+![H2](https://img.shields.io/badge/Database-H2-lightgrey)
 
 ---
 
-## 🚀 Tecnologias utilizadas
+## 📌 Sobre o Projeto
 
-- Java 17
-- Spring Boot
-- Spring Data JPA
-- Hibernate
-- Banco H2 (em memória)
-- Postman (para testes)
+Esta aplicação é uma **API REST para cadastro e gerenciamento de produtos**, desenvolvida com **Spring Boot**, utilizando **Spring Data JPA** e **Hibernate**, com banco de dados **H2 em memória**.
+
+O projeto foi criado como exercício prático de bootcamp, com foco não apenas em CRUD, mas principalmente em **organização de código, boas práticas e aplicação dos princípios SOLID**, simulando a estrutura de uma aplicação real.
 
 ---
 
-## 📌 Checklist do exercício
+## 🎯 Objetivos do Projeto
 
-- [x] Entidade Produto com `@Entity`
-- [x] ID com `@Id` e `@GeneratedValue`
-- [x] CRUD com JPA (sem SQL manual)
-- [x] H2 configurado
-- [x] Console do H2 funcionando
-- [x] Aplicação rodando na porta padrão 8080
+- Implementar uma API REST seguindo boas práticas
+- Aplicar persistência de dados com JPA (sem SQL manual)
+- Separar responsabilidades entre camadas
+- Praticar princípios SOLID na arquitetura
+- Criar um projeto claro, legível e fácil de evoluir
 
 ---
 
-## 📦 Como rodar o projeto
+## 🚀 Tecnologias Utilizadas
 
-### 1) Baixar o projeto
-Clone ou faça download do repositório.
+- **Java 17**
+- **Spring Boot 3.x**
+- **Spring Web**
+- **Spring Data JPA**
+- **Hibernate**
+- **Banco de dados H2 (em memória)**
+- **Maven**
+- **Postman** (testes da API)
 
-### 2) Rodar a aplicação
-Abra o terminal dentro da pasta do projeto e execute:
+---
 
-```bash
-mvn spring-boot:run
+## 🧠 Arquitetura e Boas Práticas
+
+O projeto foi estruturado respeitando os **princípios SOLID**, com foco em baixo acoplamento, alta coesão e facilidade de manutenção.
+
+### 📂 Organização em Camadas
+
+- **Controller**
+  - Responsável apenas por receber e responder requisições HTTP
+- **Service**
+  - Contém as regras de negócio da aplicação
+- **Repository**
+  - Acesso a dados utilizando Spring Data JPA
+- **Validation**
+  - Validações desacopladas da camada de serviço
+- **Model**
+  - Entidades JPA que representam o domínio
+
+Essa separação facilita:
+- Manutenção do código
+- Evolução do projeto
+- Escrita de testes
+- Leitura por outros desenvolvedores
+
+---
+
+## 📦 Entidade Produto
+
+A entidade principal do sistema é `Produto`, contendo:
+
+- `id` (Long)
+- `nome` (String)
+- `preco` (Double)
+
+A persistência é feita com **JPA**, utilizando:
+- `@Entity`
+- `@Id`
+- `@GeneratedValue`
+
+---
+
+## 📡 Endpoints da API
+
+### ➕ Criar Produto
+**POST** `/produtos`
+
+```json
+{
+  "nome": "Notebook",
+  "preco": 3500.00
+}
